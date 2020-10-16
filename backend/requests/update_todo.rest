@@ -1,0 +1,6 @@
+PATCH http://localhost:3001/api/todos/5f89c6b440f652428c32f0ba
+Content-Type: application/json
+
+{
+  "completed": true
+}

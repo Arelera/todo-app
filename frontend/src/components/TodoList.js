@@ -1,0 +1,24 @@
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { initTodos } from '../reducers/todosReducer';
+import Todo from './Todo';
+
+const TodoList = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(initTodos());
+  }, [dispatch]);
+
+  const todos = useSelector((state) => state.todos);
+
+  return (
+    <ul>
+      {todos.map((todo) => (
+        <Todo key={todo.id} todo={todo}>
+          {todo.title}
+        </Todo>
+      ))}
+    </ul>
+  );
+};
+export default TodoList;
