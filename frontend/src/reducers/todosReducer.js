@@ -14,6 +14,7 @@ export const initTodos = () => {
 export const createTodo = (title) => {
   return async (dispatch) => {
     const todo = await todoService.createOne(title);
+    console.log('we here?');
     dispatch({
       type: 'CREATE_TODO',
       todo,
@@ -44,8 +45,6 @@ export const updateTodo = (todo) => {
 // reducer
 const reducer = (state = [], action) => {
   switch (action.type) {
-    case 'INIT_TODOS':
-      return action.todos;
     case 'CREATE_TODO':
       return [...state, action.todo];
     case 'DELETE_TODO':
@@ -54,6 +53,8 @@ const reducer = (state = [], action) => {
       return state.map((todo) =>
         todo.id !== action.todo.id ? todo : action.todo
       );
+    case 'INIT_TODOS':
+      return action.todos;
     default:
       return state;
   }

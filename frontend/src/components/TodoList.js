@@ -12,13 +12,16 @@ const TodoList = () => {
   const todos = useSelector((state) => state.todos);
 
   return (
-    <ul>
-      {todos.map((todo) => (
-        <Todo key={todo.id} todo={todo}>
-          {todo.title}
-        </Todo>
-      ))}
-    </ul>
+    <>
+      <h2>List</h2>
+      <ul>
+        {todos.map((todo) => (
+          <Todo key={todo.id} todo={todo}>
+            {todo.title}
+          </Todo>
+        ))}
+      </ul>
+    </>
   );
 };
 export default TodoList;
