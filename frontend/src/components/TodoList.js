@@ -10,7 +10,6 @@ const TodoList = () => {
   }, [dispatch]);
 
   let todos = useSelector((state) => state.todos);
-  console.log('TODOLIST TODOS: ', todos);
 
   return (
     <>

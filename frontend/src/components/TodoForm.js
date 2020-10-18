@@ -2,6 +2,8 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { createTodo } from '../reducers/todosReducer';
 import todoService from '../services/todos';
+import Button from './Button';
+import InputText from './InputText';
 
 const TodoForm = () => {
   const dispatch = useDispatch();
@@ -19,9 +21,9 @@ const TodoForm = () => {
   };
   return (
     <div>
-      <h2>Add Todo Item</h2>
+      <h2>Add Item</h2>
       <form onSubmit={handleSubmit}>
-        <input name="title" /> <button type="submit"> +++ </button>
+        <InputText name="title" /> <Button type="submit">add</Button>
       </form>
     </div>
   );

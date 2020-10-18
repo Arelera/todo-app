@@ -20,7 +20,7 @@ export const loginUser = (user) => {
       return {}; // for when we check lenght to see if there are errors
     } catch (err) {
       console.log('Error in userreducer: ', err);
-      return { error: 'Wrong credentials' };
+      return { error: 'Invalid credentials' };
     }
   };
 };

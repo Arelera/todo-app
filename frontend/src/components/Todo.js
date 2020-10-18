@@ -1,7 +1,22 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import styled from 'styled-components';
 import { deleteTodo, updateTodo } from '../reducers/todosReducer';
+import Button from './Button';
 
+const Li = styled.li`
+  border-bottom: 1px solid #ddd;
+  padding: 0.5rem 0;
+
+  /* this is the one grid thing i can use easily lol, other things are hard */
+  display: grid;
+  grid-row-gap: 0.1rem;
+  grid-template-columns: repeat(5, 1fr) 80px;
+  grid-template-areas: 'text text text text text buttons';
+  &:last-child {
+    border-bottom: none;
+  }
+`;
 const Todo = ({ todo }) => {
   const dispatch = useDispatch();
 
@@ -18,18 +33,22 @@ const Todo = ({ todo }) => {
   };
 
   return (
-    <li>
-      <input
-        type="checkbox"
-        onChange={handleCheck}
-        checked={todo.completed ? true : false}
-      />
-      <p style={{ display: 'inline-block' }}>{todo.title}</p>{' '}
-      <button onClick={handleDelClick}>del</button>{' '}
-      <button onClick={handleImporantClick}>
-        {todo.important ? '!!!' : '!'}
-      </button>
-    </li>
+    <Li>
+      <p style={{ gridArea: 'text' }}>
+        <input
+          type="checkbox"
+          onChange={handleCheck}
+          checked={todo.completed ? true : false}
+        />
+        {todo.title}
+      </p>{' '}
+      <div style={{ gridArea: 'buttons' }}>
+        <Button onClick={handleDelClick}>del</Button>{' '}
+        <Button important={todo.important} onClick={handleImporantClick}>
+          {todo.important ? '!!!' : '!'}
+        </Button>
+      </div>
+    </Li>
   );
 };
 

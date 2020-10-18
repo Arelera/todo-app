@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import Button from './Button';
 import { useDispatch } from 'react-redux';
+import { giveNotification } from '../reducers/notificationReducer';
 import { cleanList, initTodos } from '../reducers/todosReducer';
 import { loginUser, logoutUser } from '../reducers/userReducer';
+import InputText from './InputText';
 
+// currently accounts can be only created through requests
 const UserForm = () => {
   const dispatch = useDispatch();
-  const [notification, setNotification] = useState('');
   const [expanded, setExpanded] = useState(false);
   const [loggedIn, setLoggedIn] = useState();
 
@@ -31,12 +34,9 @@ const UserForm = () => {
         dispatch(initTodos());
         setExpanded(false);
         setLoggedIn(true);
-        setNotification(`${username} logged in`);
-        return setTimeout(() => {
-          setNotification(null);
-        }, 5000);
+        return dispatch(giveNotification(`${username} logged in`));
       }
-      setNotification(res.error);
+      dispatch(giveNotification(res.error));
     });
   };
 
@@ -48,25 +48,26 @@ const UserForm = () => {
   };
 
   if (loggedIn) {
-    return <button onClick={handleLogout}>logout</button>;
+    return <Button onClick={handleLogout}>logout</Button>;
   } else {
     return expanded ? (
       <form onSubmit={handleLogin}>
         <label htmlFor="username">Username:</label>
-        <input type="text" id="username" name="username" />
+        <InputText type="text" id="username" name="username" />
         <br />
         <label htmlFor="password">Password:</label>
-        <input type="password" id="password" name="password" />
+        <InputText type="password" id="password" name="password" />
         <br />
-        <button type="submit">login</button>
-        <button type="button" onClick={() => setExpanded(!expanded)}>
+        {/* <button type="submit">login</button> */}
+        <Button type="submit">login</Button>
+        <Button type="button" onClick={() => setExpanded(!expanded)}>
           cancel
-        </button>
+        </Button>
       </form>
     ) : (
-      <button type="button" onClick={() => setExpanded(!expanded)}>
+      <Button type="button" onClick={() => setExpanded(!expanded)}>
         login
-      </button>
+      </Button>
     );
   }
 };

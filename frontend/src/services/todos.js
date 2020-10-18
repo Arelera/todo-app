@@ -21,7 +21,6 @@ if (userJson) {
 const getAllMine = async () => {
   const config = { headers: { Authorization: token } };
   const response = await axios.get(baseUrl, config);
-  console.log('GETALLMINE response: ', response);
   return response.data;
 };
 
