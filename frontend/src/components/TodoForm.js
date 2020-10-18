@@ -8,18 +8,22 @@ const TodoForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const loggedUser = JSON.parse(
-      window.localStorage.getItem('loggedTodoAppUser')
-    );
-    todoService.setToken(loggedUser.token);
+    const loggedUserJson = window.localStorage.getItem('loggedTodoAppUser');
 
-    dispatch(createTodo(e.target.title.value));
-    e.target.title.value = '';
+    if (loggedUserJson) {
+      const loggedUser = JSON.parse(loggedUserJson);
+      todoService.setToken(loggedUser.token);
+      dispatch(createTodo(e.target.title.value));
+      e.target.title.value = '';
+    }
   };
   return (
-    <form onSubmit={handleSubmit}>
-      <input name="title" /> <button type="submit"> +++ </button>
-    </form>
+    <div>
+      <h2>Add Todo Item</h2>
+      <form onSubmit={handleSubmit}>
+        <input name="title" /> <button type="submit"> +++ </button>
+      </form>
+    </div>
   );
 };
 

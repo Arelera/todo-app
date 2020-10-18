@@ -9,7 +9,8 @@ const TodoList = () => {
     dispatch(initTodos());
   }, [dispatch]);
 
-  const todos = useSelector((state) => state.todos);
+  let todos = useSelector((state) => state.todos);
+  console.log('TODOLIST TODOS: ', todos);
 
   return (
     <>

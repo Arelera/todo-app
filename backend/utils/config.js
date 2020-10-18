@@ -9,5 +9,5 @@ if (process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'dev') {
 module.exports = {
   PORT: process.env.PORT,
   MONGODB_URI,
-  // SECRET: process.env.SECRET,
+  SECRET: process.env.SECRET,
 };

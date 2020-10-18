@@ -1,31 +1,24 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import Notification from './components/Notification';
 import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList';
-import Togglable from './components/Togglable';
 import UserForm from './components/UserForm';
-import { loginUser } from './reducers/userReducer';
+import todoService from './services/todos';
 
 function App() {
-  const dispatch = useDispatch();
   useEffect(() => {
-    const loggedUserJson = window.localStorage.getItem('loggedTodoAppUser');
-    if (loggedUserJson) {
-      const { name, username } = JSON.parse(loggedUserJson);
-      dispatch(loginUser({ name, username }));
+    const userJson = window.localStorage.getItem('loggedTodoAppUser');
+    if (userJson) {
+      const token = JSON.parse(userJson).token;
+      todoService.setToken(token);
     }
   }, []);
 
-  const loggedUser = useSelector((state) => state.user);
-
   return (
     <div>
-      <h2>App</h2>
-      {loggedUser && (
-        <Togglable buttonLabel="sign-in">
-          <UserForm />
-        </Togglable>
-      )}
+      <h2>Todo App</h2>
+      <Notification />
+      <UserForm />
       <TodoForm />
       <TodoList />
     </div>
@@ -33,4 +26,3 @@ function App() {
 }
 
 export default App;
-// TODO: ADD A WAY TO LOG OUT

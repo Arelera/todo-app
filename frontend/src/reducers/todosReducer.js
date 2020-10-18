@@ -3,7 +3,7 @@ import todoService from '../services/todos';
 // action creators
 export const initTodos = () => {
   return async (dispatch) => {
-    const todos = await todoService.getAll();
+    const todos = await todoService.getAllMine();
     dispatch({
       type: 'INIT_TODOS',
       todos,
@@ -42,6 +42,12 @@ export const updateTodo = (todo) => {
   };
 };
 
+export const cleanList = () => {
+  return {
+    type: 'CLEAN_LIST',
+  };
+};
+
 // reducer
 const reducer = (state = [], action) => {
   switch (action.type) {
@@ -53,6 +59,8 @@ const reducer = (state = [], action) => {
       return state.map((todo) =>
         todo.id !== action.todo.id ? todo : action.todo
       );
+    case 'CLEAN_LIST':
+      return [];
     case 'INIT_TODOS':
       return action.todos;
     default:
