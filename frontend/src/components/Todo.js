@@ -7,12 +7,18 @@ import Button from './Button';
 const Li = styled.li`
   border-bottom: 1px solid #ddd;
   padding: 0.5rem 0;
-
   /* this is the one grid thing i can use easily lol, other things are hard */
   display: grid;
   grid-row-gap: 0.1rem;
   grid-template-columns: repeat(5, 1fr) 80px;
   grid-template-areas: 'text text text text text buttons';
+
+  p {
+    color: ${(props) => (props.completed ? '#aaa' : '#222')};
+    font-style: ${(props) => (props.completed ? 'italic' : '')};
+    text-decoration: ${(props) => (props.completed ? 'line-through' : '')};
+  }
+
   &:last-child {
     border-bottom: none;
   }
@@ -33,7 +39,7 @@ const Todo = ({ todo }) => {
   };
 
   return (
-    <Li>
+    <Li completed={todo.completed}>
       <p style={{ gridArea: 'text' }}>
         <input
           type="checkbox"

@@ -34,11 +34,23 @@ export const logoutUser = () => {
 };
 // verify user, this for checking if the user is in localstate
 // if it's an actual user in a database. will be run on refreshes and such
+// HAVEN'T USED YET, so i dont't think it's gonna be here for much longer...
 export const verifyUser = (user) => {
   return async (dispatch) => {
     dispatch({
       type: 'VERIFY',
       user,
+    });
+  };
+};
+
+export const createUser = (user) => {
+  return async (dispatch) => {
+    const createdUser = await loginService.createUser(user);
+    console.log('WTF2, createdUser: ', createdUser);
+    dispatch({
+      type: 'CREATE',
+      user: { name: createdUser.name, username: createdUser.username },
     });
   };
 };
@@ -51,6 +63,8 @@ const reducer = (state = null, action) => {
       return action.user;
     case 'LOGOUT':
       return initialState;
+    case 'CREATE':
+      return state; // we need user to login for token
     default:
       return state;
   }
