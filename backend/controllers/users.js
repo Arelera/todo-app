@@ -5,7 +5,7 @@ const User = require('../models/user');
 // creating a user
 router.post('/', async (req, res) => {
   const { name, username, password } = req.body;
-
+  console.log('.POST RECEIVED BODY: ', req.body);
   if (password.length < 8) {
     res
       .status(400)
@@ -27,7 +27,7 @@ router.post('/', async (req, res) => {
   });
 
   const savedUser = await user.save();
-
+  console.log('SAVED USER: ', savedUser);
   res.json(savedUser);
 });
 
