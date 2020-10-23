@@ -55,14 +55,33 @@ export const createUser = (user) => {
   };
 };
 
+export const initUser = () => {
+  return async (dispatch) => {
+    const userJson = window.localStorage.getItem('loggedTodoAppUser');
+    if (userJson) {
+      const { name, username, token } = JSON.parse(userJson);
+      dispatch({
+        type: 'INIT',
+        user: { name, username },
+        token,
+      });
+    }
+  };
+};
+
 //reducer
 const initialState = { name: '', username: '' };
-const reducer = (state = null, action) => {
+// state not being null "maaaaybee" could break some stuff,
+// i forgot if it needed to be null
+const reducer = (state = initialState, action) => {
   switch (action.type) {
     case 'LOGIN':
       return action.user;
     case 'LOGOUT':
       return initialState;
+    case 'INIT':
+      todoService.setToken(action.token);
+      return action.user;
     case 'CREATE':
       return state; // we need user to login for token
     default:

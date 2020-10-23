@@ -48,6 +48,20 @@ export const cleanList = () => {
   };
 };
 
+// export const initToken = () => {
+//   return async (dispatch) => {
+//     const userJson = window.localStorage.getItem('loggedTodoAppUser');
+//     if (userJson) {
+//       const token = JSON.parse(userJson).token;
+
+//       dispatch({
+//         type: 'INIT_TOKEN',
+//         token,
+//       });
+//     }
+//   };
+// };
+
 // reducer
 const reducer = (state = [], action) => {
   switch (action.type) {
@@ -63,6 +77,9 @@ const reducer = (state = [], action) => {
       return [];
     case 'INIT_TODOS':
       return action.todos;
+    case 'INIT_TOKEN':
+      todoService.setToken(action.token);
+      return state;
     default:
       return state;
   }

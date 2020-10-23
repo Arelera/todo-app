@@ -93,18 +93,18 @@ const UserForm = () => {
       ) : (
         // sign up form
         <form onSubmit={handleLogin}>
-          <label htmlFor="username">Username:</label>
+          <label htmlFor="username">Username</label>
           <InputText type="text" id="username" name="username" />
           <br />
-          <label htmlFor="password">Password:</label>
+          <label htmlFor="password">Password</label>
           <InputText type="password" id="password" name="password" />
           <br />
           <Button type="submit">login</Button>{' '}
           <Button type="button" onClick={() => setExpanded(!expanded)}>
             cancel
-          </Button>
+          </Button>{' '}
           <Button type="button" onClick={() => setCreating(true)}>
-            Don't have an account? Click to create one
+            Create
           </Button>
         </form>
       )
