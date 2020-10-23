@@ -65,7 +65,10 @@ export const initUser = () => {
         user: { name, username },
         token,
       });
+      // if user is logged in or not, we return true/false for setLoggedIn in userForm
+      return true;
     }
+    return false;
   };
 };
 

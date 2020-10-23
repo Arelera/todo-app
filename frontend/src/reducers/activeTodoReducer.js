@@ -6,11 +6,20 @@ export const setActiveTodo = (todo) => {
   };
 };
 
+export const resetActiveTodo = () => {
+  return {
+    type: 'RESET',
+  };
+};
+
 // reducer
-const reducer = (state = { title: '', important: '' }, action) => {
+const clearState = { title: '', important: '', description: '' };
+const reducer = (state = clearState, action) => {
   switch (action.type) {
     case 'SET':
       return action.todo;
+    case 'RESET':
+      return clearState;
     default:
       return state;
   }

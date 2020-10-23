@@ -3,8 +3,14 @@ import Button from './Button';
 import { useDispatch } from 'react-redux';
 import { giveNotification } from '../reducers/notificationReducer';
 import { cleanList, initTodos } from '../reducers/todosReducer';
-import { createUser, loginUser, logoutUser } from '../reducers/userReducer';
+import {
+  createUser,
+  initUser,
+  loginUser,
+  logoutUser,
+} from '../reducers/userReducer';
 import InputText from './InputText';
+import { resetActiveTodo } from '../reducers/activeTodoReducer';
 
 // currently accounts can be only created through requests
 const UserForm = () => {
@@ -14,12 +20,9 @@ const UserForm = () => {
   const [creating, setCreating] = useState(false);
 
   useEffect(() => {
-    const loggedUserJson = window.localStorage.getItem('loggedTodoAppUser');
-    if (loggedUserJson) {
-      const { name, username } = JSON.parse(loggedUserJson);
-      dispatch(loginUser({ name, username }));
-      setLoggedIn(true);
-    }
+    dispatch(initUser()).then((res) => {
+      setLoggedIn(res);
+    });
   }, [dispatch]);
 
   const handleLogin = async (e) => {
@@ -28,7 +31,7 @@ const UserForm = () => {
     const password = e.target.password.value;
 
     const result = dispatch(loginUser({ username, password }));
-    // this block down here took me a long ass time to get right
+
     result.then((res) => {
       // if length is 0, no error was sent
       if (Object.keys(res).length === 0) {
@@ -44,7 +47,7 @@ const UserForm = () => {
   const handleLogout = () => {
     dispatch(logoutUser());
     dispatch(cleanList());
-
+    dispatch(resetActiveTodo());
     setLoggedIn(false);
   };
 

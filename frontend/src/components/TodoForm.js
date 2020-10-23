@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { createTodo } from '../reducers/todosReducer';
 import todoService from '../services/todos';
-import Button from './Button';
 import InputText from './InputText';
 
 const H2 = styled.h2`
@@ -28,7 +27,11 @@ const TodoForm = () => {
     <div>
       <H2>Add Item</H2>
       <form onSubmit={handleSubmit}>
-        <InputText name="title" /> <Button type="submit">add</Button>
+        <InputText
+          name="title"
+          placeholder='Add a todo item, press "Enter" to save'
+        />
+        {/* <Button type="submit">add</Button> */}
       </form>
     </div>
   );

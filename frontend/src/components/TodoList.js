@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import Todo from './Todo';
 import { initTodos, deleteTodo } from '../reducers/todosReducer';
-import { setActiveTodo } from '../reducers/activeTodoReducer';
+import { resetActiveTodo, setActiveTodo } from '../reducers/activeTodoReducer';
 
 const Ul = styled.ul`
   .todo-enter {
@@ -40,6 +40,7 @@ const TodoList = () => {
 
   const handleDelete = (id) => {
     dispatch(deleteTodo(id));
+    dispatch(resetActiveTodo());
   };
 
   return (

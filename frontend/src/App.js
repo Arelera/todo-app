@@ -1,17 +1,14 @@
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
 import styled from 'styled-components';
 
 import LeftSide from './components/LeftSide';
 import Todos from './components/Todos';
 import RightSide from './components/RightSide';
 
-import { initUser } from './reducers/userReducer';
-
 const Div = styled.div`
   height: 100vh;
   width: 100vw;
-  background: #efefef;
+  background: #f4f4f4;
   padding: 0;
 `;
 
@@ -21,11 +18,6 @@ const DivFlex = styled.div`
 `;
 
 function App() {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(initUser());
-  }, []);
-
   return (
     <Div>
       <DivFlex>

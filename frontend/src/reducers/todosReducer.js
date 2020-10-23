@@ -14,7 +14,6 @@ export const initTodos = () => {
 export const createTodo = (title) => {
   return async (dispatch) => {
     const todo = await todoService.createOne(title);
-    console.log('we here?');
     dispatch({
       type: 'CREATE_TODO',
       todo,

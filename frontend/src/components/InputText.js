@@ -15,8 +15,8 @@ const Input = styled.input`
   outline: none;
 `;
 
-const InputText = ({ type, id, name }) => {
-  return <Input type={type} id={id} name={name} />;
+const InputText = ({ type, id, name, placeholder }) => {
+  return <Input type={type} id={id} name={name} placeholder={placeholder} />;
 };
 
 export default InputText;
