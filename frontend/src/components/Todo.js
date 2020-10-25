@@ -6,12 +6,11 @@ import { updateTodo } from '../reducers/todosReducer';
 import Button from './Button';
 
 const Li = styled.li`
-  border-bottom: 1px solid #ddd;
   padding: 0.2rem 0 0.2rem 0.5rem;
   margin: 0.25rem 0;
   background: #fff;
   border-radius: 6px;
-  border: 2px solid transparent;
+  border: 2px solid ${(props) => (props.isActive() ? '#63d2ff' : 'transparent')};
   font-family: 'Open Sans';
 
   display: grid;
@@ -23,7 +22,7 @@ const Li = styled.li`
 
   transition: border ease 200ms;
   &:hover {
-    border: 2px solid #2cda9d;
+    border: 2px solid #63d2ff;
   }
 
   & > p {
@@ -37,7 +36,7 @@ const Li = styled.li`
     text-decoration: ${(props) => (props.completed ? 'line-through' : '')};
   }
 `;
-const Todo = ({ todo, handleDelete, setActive }) => {
+const Todo = ({ todo, handleDelete, setActive, isActive }) => {
   const dispatch = useDispatch();
 
   const handleCheck = () => {
@@ -49,7 +48,7 @@ const Todo = ({ todo, handleDelete, setActive }) => {
   };
 
   return (
-    <Li completed={todo.completed} onClick={setActive}>
+    <Li isActive={isActive} completed={todo.completed} onClick={setActive}>
       <p style={{ gridArea: 'text' }}>
         <input
           type="checkbox"

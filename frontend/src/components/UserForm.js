@@ -11,6 +11,7 @@ import {
 } from '../reducers/userReducer';
 import InputText from './InputText';
 import { resetActiveTodo } from '../reducers/activeTodoReducer';
+import { clearProjects } from '../reducers/projectsReducer';
 
 // currently accounts can be only created through requests
 const UserForm = () => {
@@ -48,6 +49,7 @@ const UserForm = () => {
     dispatch(logoutUser());
     dispatch(cleanList());
     dispatch(resetActiveTodo());
+    dispatch(clearProjects());
     setLoggedIn(false);
   };
 

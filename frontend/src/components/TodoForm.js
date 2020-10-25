@@ -1,16 +1,12 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
 import { createTodo } from '../reducers/todosReducer';
 import todoService from '../services/todos';
 import InputText from './InputText';
 
-const H2 = styled.h2`
-  margin: 0.75rem 0 0 0;
-`;
-
 const TodoForm = () => {
   const dispatch = useDispatch();
+  const selectedProject = useSelector((state) => state.selectedProject);
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -19,13 +15,14 @@ const TodoForm = () => {
     if (loggedUserJson) {
       const loggedUser = JSON.parse(loggedUserJson);
       todoService.setToken(loggedUser.token);
-      dispatch(createTodo(e.target.title.value));
+      dispatch(
+        createTodo({ title: e.target.title.value, project: selectedProject })
+      );
       e.target.title.value = '';
     }
   };
   return (
     <div>
-      <H2>Add Item</H2>
       <form onSubmit={handleSubmit}>
         <InputText
           name="title"

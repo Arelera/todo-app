@@ -1,4 +1,5 @@
 import todoService from '../services/todos';
+import projectService from '../services/projects'; // for token init
 
 // action creators
 export const initTodos = () => {
@@ -11,9 +12,9 @@ export const initTodos = () => {
   };
 };
 
-export const createTodo = (title) => {
+export const createTodo = ({ title, project }) => {
   return async (dispatch) => {
-    const todo = await todoService.createOne(title);
+    const todo = await todoService.createOne({ title, project });
     dispatch({
       type: 'CREATE_TODO',
       todo,
@@ -47,20 +48,6 @@ export const cleanList = () => {
   };
 };
 
-// export const initToken = () => {
-//   return async (dispatch) => {
-//     const userJson = window.localStorage.getItem('loggedTodoAppUser');
-//     if (userJson) {
-//       const token = JSON.parse(userJson).token;
-
-//       dispatch({
-//         type: 'INIT_TOKEN',
-//         token,
-//       });
-//     }
-//   };
-// };
-
 // reducer
 const reducer = (state = [], action) => {
   switch (action.type) {
@@ -76,9 +63,10 @@ const reducer = (state = [], action) => {
       return [];
     case 'INIT_TODOS':
       return action.todos;
-    case 'INIT_TOKEN':
-      todoService.setToken(action.token);
-      return state;
+    // case 'INIT_TOKEN':
+    //   todoService.setToken(action.token);
+    //   console.log('TOKEN:::r: ', action.token);
+    //   return state;
     default:
       return state;
   }

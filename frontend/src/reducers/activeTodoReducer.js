@@ -13,7 +13,7 @@ export const resetActiveTodo = () => {
 };
 
 // reducer
-const clearState = { title: '', important: '', description: '' };
+const clearState = { title: '', important: '', description: '', id: 0 };
 const reducer = (state = clearState, action) => {
   switch (action.type) {
     case 'SET':

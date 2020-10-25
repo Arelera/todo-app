@@ -24,9 +24,9 @@ const getAllMine = async () => {
   return response.data;
 };
 
-const createOne = async (title) => {
+const createOne = async ({ title, project }) => {
   const config = { headers: { Authorization: token } };
-  const response = await axios.post(baseUrl, { title }, config);
+  const response = await axios.post(baseUrl, { title, project }, config);
 
   return response.data;
 };

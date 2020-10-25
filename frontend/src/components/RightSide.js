@@ -10,6 +10,13 @@ const DivDescription = styled.div`
   & > h2 {
     margin: 0.75rem 0;
   }
+
+  /* this is for "click a todo to view it's details" */
+  & > h3 {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-top: 50%;
+  }
 `;
 
 const Textarea = styled.textarea`
@@ -19,8 +26,8 @@ const Textarea = styled.textarea`
   padding: 0.4rem 0.6rem;
   margin-bottom: 0.5rem;
   width: 100%;
-  min-height: 150px;
-  max-height: 400px;
+  min-height: 200px;
+  max-height: 500px;
   border-radius: 4px;
   border: 1px solid #dedede;
   color: #333;
@@ -42,7 +49,9 @@ const RightSide = () => {
 
   useEffect(() => {
     const id = setTimeout(() => {
-      dispatch(updateTodo({ ...activeTodo, description }));
+      if (description) {
+        dispatch(updateTodo({ ...activeTodo, description }));
+      }
     }, 1000);
     return () => {
       clearTimeout(id);
@@ -60,10 +69,14 @@ const RightSide = () => {
           <h2>
             {activeTodo.title} {activeTodo.important ? '!!!' : '!'}
           </h2>
-          <Textarea value={description} onChange={handleTextarea}></Textarea>
+          <Textarea
+            value={description}
+            onChange={handleTextarea}
+            placeholder="Description..."
+          ></Textarea>
         </>
       ) : (
-        <p>Click a task to view it's details</p>
+        <h3>Click a task to view it's details</h3>
       )}
     </DivDescription>
   );

@@ -7,8 +7,7 @@ import RightSide from './components/RightSide';
 
 const Div = styled.div`
   height: 100vh;
-  width: 100vw;
-  background: #f4f4f4;
+  background: #f7f9f9;
   padding: 0;
 `;
 

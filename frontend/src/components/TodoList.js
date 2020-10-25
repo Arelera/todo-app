@@ -8,6 +8,12 @@ import { initTodos, deleteTodo } from '../reducers/todosReducer';
 import { resetActiveTodo, setActiveTodo } from '../reducers/activeTodoReducer';
 
 const Ul = styled.ul`
+  border-top: 2px solid #78d5d7;
+
+  & > li:first-child {
+    margin-top: 0.5rem;
+  }
+
   .todo-enter {
     opacity: 0;
     transform: translate(0, -20px);
@@ -36,11 +42,22 @@ const TodoList = () => {
     dispatch(initTodos());
   }, [dispatch]);
 
+  const selectedProject = useSelector((state) => state.selectedProject);
   let todos = useSelector((state) => state.todos);
+
+  todos =
+    selectedProject === 0
+      ? todos
+      : todos.filter((todo) => todo.project === selectedProject);
 
   const handleDelete = (id) => {
     dispatch(deleteTodo(id));
     dispatch(resetActiveTodo());
+  };
+
+  const activeTodo = useSelector((state) => state.activeTodo);
+  const isActive = (id) => {
+    return activeTodo.id === id;
   };
 
   return (
@@ -51,6 +68,7 @@ const TodoList = () => {
             setActive={() => dispatch(setActiveTodo(todo))}
             handleDelete={handleDelete}
             todo={todo}
+            isActive={() => isActive(todo.id)}
           >
             {todo.title}
           </Todo>
