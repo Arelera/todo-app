@@ -14,12 +14,10 @@ const getTokenFrom = (request) => {
 
 router.get('/', async (req, res) => {
   const token = getTokenFrom(req);
-  console.log('.get TOKEN: ', token);
   const decodedToken = jwt.verify(token, config.SECRET);
   if (!token || !decodedToken.id) {
     return res.status(401).json({ error: 'Please login to view your notes' });
   }
-  console.log('DECODEDTOKEN: ', decodedToken);
 
   // todos user has to match requesting users id (we get that id from token)
   const todos = await Todo.find({ user: decodedToken.id });

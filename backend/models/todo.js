@@ -5,6 +5,10 @@ const todoSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  description: {
+    type: String,
+    default: '',
+  },
   important: {
     type: Boolean,
     default: false,
@@ -16,12 +20,15 @@ const todoSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
   },
+  project: {
+    type: mongoose.Schema.Types.ObjectId,
+  },
 });
 
 todoSchema.set('toJSON', {
   transform: (document, returnedObject) => {
-    (returnedObject.id = returnedObject._id.toString()),
-      delete returnedObject._id;
+    returnedObject.id = returnedObject._id.toString();
+    delete returnedObject._id;
     delete returnedObject.__v;
   },
 });

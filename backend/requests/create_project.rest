@@ -1,0 +1,7 @@
+POST http://localhost:3001/api/projects
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImNvb2xib2IiLCJpZCI6IjVmOGQ0MjBjNDc4OWNkM2E5YzVlYmNjZSIsImlhdCI6MTYwMzYxNzEwNH0.XQdzkQKFYDbECXoRFKw_SnzMYfYs1F-vs88Lt8j4Q1k
+
+{
+  "title": "epic project"
+}

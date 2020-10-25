@@ -7,6 +7,7 @@ const { MONGODB_URI } = require('./utils/config');
 const notesRouter = require('./controllers/todos');
 const usersRouter = require('./controllers/users');
 const loginRouter = require('./controllers/login');
+const projectsRouter = require('./controllers/projects');
 
 mongoose
   .connect(process.env.MONGODB_URI || MONGODB_URI, {
@@ -20,9 +21,6 @@ mongoose
     console.log('Connection error: ', error);
   });
 
-console.log('process MONGODB_URI', process.env.MONGODB_URI);
-console.log('MONGODB_URI', MONGODB_URI);
-
 app.use(cors());
 app.use(express.json());
 app.use(express.static('build'));
@@ -30,5 +28,6 @@ app.use(express.static('build'));
 app.use('/api/todos', notesRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/login', loginRouter);
+app.use('/api/projects', projectsRouter);
 
 module.exports = app;
