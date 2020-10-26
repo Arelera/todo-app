@@ -34,8 +34,10 @@ const LeftSide = () => {
     if (userJson) {
       const token = JSON.parse(userJson).token;
       projectService.setToken(token);
+
+      dispatch(getProjects());
+      return dispatch(getProjects());
     }
-    dispatch(getProjects());
   }, [dispatch]);
 
   const projects = useSelector((state) => state.projects);

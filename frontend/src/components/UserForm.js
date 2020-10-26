@@ -11,7 +11,8 @@ import {
 } from '../reducers/userReducer';
 import InputText from './InputText';
 import { resetActiveTodo } from '../reducers/activeTodoReducer';
-import { clearProjects } from '../reducers/projectsReducer';
+import { clearProjects, getProjects } from '../reducers/projectsReducer';
+import projectService from '../services/projects'; // for token init
 
 // currently accounts can be only created through requests
 const UserForm = () => {
@@ -39,6 +40,13 @@ const UserForm = () => {
         dispatch(initTodos());
         setExpanded(false);
         setLoggedIn(true);
+
+        const token = JSON.parse(
+          window.localStorage.getItem('loggedTodoAppUser')
+        ).token;
+        projectService.setToken(token);
+        dispatch(getProjects());
+
         return dispatch(giveNotification(`${username} logged in`));
       }
       dispatch(giveNotification(res.error));
