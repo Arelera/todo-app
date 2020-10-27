@@ -4,24 +4,24 @@ import styled from 'styled-components';
 const ButtonElement = styled.button`
   font-family: 'Roboto Condensed';
   padding: 0.4rem 0.6rem;
-  box-shadow: 1px 2px 10px #ddd;
-  border-radius: 4px;
-  font-weight: 600;
+  /* box-shadow: 1px 2px 10px #ddd;
+  border-radius: 4px; */
+  background: hsla(0, 0%, 98%, 0);
+  font-weight: 400;
   font-size: ${(props) =>
     props.fontSize ? `${props.fontSize}rem` : '0.88rem'};
-  background: hsl(0, 0%, 98%);
+  border: none;
 
-  border: 1px solid ${(props) => (props.important ? '#FF007F' : '#dedede')};
-  color: ${(props) => (props.important ? '#FF007F' : '#222')};
+  color: ${(props) => (props.important ? '#FF007F' : '#555')};
   text-shadow: ${(props) => (props.important ? '0px 0px 1px  #FF007F' : '')};
   cursor: pointer;
 
   &:hover {
-    background: hsl(0, 0%, 96%);
+    color: #2081c3;
   }
 `;
 
-const Button = ({ type, onClick, children, important, fontSize }) => {
+const Button2 = ({ type, onClick, children, important, fontSize }) => {
   return (
     <ButtonElement
       fontSize={fontSize}
@@ -34,4 +34,4 @@ const Button = ({ type, onClick, children, important, fontSize }) => {
   );
 };
 
-export default Button;
+export default Button2;

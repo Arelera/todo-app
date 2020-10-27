@@ -56,7 +56,7 @@ const RightSide = () => {
     return () => {
       clearTimeout(id);
     };
-  }, [description, dispatch]);
+  }, [description, dispatch, activeTodo]);
 
   const handleTextarea = (e) => {
     setDescription(e.target.value);

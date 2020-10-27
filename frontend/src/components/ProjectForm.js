@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { addProject } from '../reducers/projectsReducer';
 import InputText from './InputText';
@@ -8,7 +8,7 @@ const ProjectForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(addProject(e.target.project.value));
-    console.log('handleSubmit projectform');
+    e.target.project.value = '';
   };
 
   return (

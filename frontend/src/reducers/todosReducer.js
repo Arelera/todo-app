@@ -1,5 +1,4 @@
 import todoService from '../services/todos';
-import projectService from '../services/projects'; // for token init
 
 // action creators
 export const initTodos = () => {
@@ -63,10 +62,6 @@ const reducer = (state = [], action) => {
       return [];
     case 'INIT_TODOS':
       return action.todos;
-    // case 'INIT_TOKEN':
-    //   todoService.setToken(action.token);
-    //   console.log('TOKEN:::r: ', action.token);
-    //   return state;
     default:
       return state;
   }

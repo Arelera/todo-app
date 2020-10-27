@@ -4,7 +4,6 @@ import projectService from '../services/projects';
 export const getProjects = () => {
   return async (dispatch) => {
     const projects = await projectService.getAllMine();
-    console.log('GOTTEN PROJECTS: ', projects);
     dispatch({
       type: 'GET',
       projects,

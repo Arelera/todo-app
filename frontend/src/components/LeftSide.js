@@ -1,17 +1,34 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
-import UserForm from './UserForm';
 import ProjectForm from './ProjectForm';
 import Project from './Project';
-import { deleteProject, getProjects } from '../reducers/projectsReducer';
+import {
+  clearProjects,
+  deleteProject,
+  getProjects,
+} from '../reducers/projectsReducer';
 import projectService from '../services/projects';
 import { selectProject } from '../reducers/selectedProjectReducer';
+import Button from './Button';
+import { logoutUser } from '../reducers/userReducer';
+import { cleanList } from '../reducers/todosReducer';
+import { resetActiveTodo } from '../reducers/activeTodoReducer';
+import { useHistory } from 'react-router-dom';
 
 const Div = styled.div`
   padding: 0.5rem;
   min-width: 180px;
+  overflow-y: scroll;
+
+  position: relative;
+  & > button {
+    position: absolute;
+    top: 15px;
+    right: 10px;
+  }
 `;
 
 const H2 = styled.h2`
@@ -23,6 +40,27 @@ const Ul = styled.ul`
 
   & > li:first-child {
     margin-top: 0.5rem;
+  }
+
+  .fade-enter {
+    opacity: 0;
+    transform: translate(0, -20px);
+  }
+
+  .fade-enter-active {
+    opacity: 1;
+    transform: translate(0, 0);
+    transition: all 200ms ease-out;
+  }
+
+  .fade-exit {
+    opacity: 1;
+  }
+
+  .fade-exit-active {
+    opacity: 0;
+    transform: translate(-20px, 0px);
+    transition: all 150ms ease-out;
   }
 `;
 
@@ -36,7 +74,6 @@ const LeftSide = () => {
       projectService.setToken(token);
 
       dispatch(getProjects());
-      return dispatch(getProjects());
     }
   }, [dispatch]);
 
@@ -53,26 +90,39 @@ const LeftSide = () => {
   const selectedProject = useSelector((state) => state.selectedProject);
   const isActive = (id) => selectedProject === id;
 
+  const history = useHistory(); // *******
+
+  const handleLogout = () => {
+    history.push('/'); // idk about this, doesn't help
+    dispatch(logoutUser());
+    dispatch(cleanList());
+    dispatch(resetActiveTodo());
+    dispatch(clearProjects());
+  };
+
   return (
     <Div>
       <H2>Projects</H2>
       <ProjectForm />
-      <Ul>
+      <TransitionGroup component={Ul}>
         <Project id={0} handleSelect={() => handleSelect(0)}>
           All
         </Project>
+
         {projects.map((p) => (
-          <Project
-            handleSelect={() => handleSelect(p.id)}
-            handleDelete={() => handleDelete(p.id)}
-            key={p.id}
-            isActive={isActive(p.id)} // this kinda makes no sense but it works if its not a callback
-          >
-            {p.title}
-          </Project>
+          <CSSTransition classNames="fade" timeout={150}>
+            <Project
+              handleSelect={() => handleSelect(p.id)}
+              handleDelete={() => handleDelete(p.id)}
+              key={p.id}
+              isActive={isActive(p.id)} // this kinda makes no sense but it works if its not a callback
+            >
+              {p.title}
+            </Project>
+          </CSSTransition>
         ))}
-      </Ul>
-      <UserForm />
+      </TransitionGroup>
+      <Button onClick={handleLogout}>logout</Button>
     </Div>
   );
 };
