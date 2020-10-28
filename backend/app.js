@@ -9,6 +9,8 @@ const usersRouter = require('./controllers/users');
 const loginRouter = require('./controllers/login');
 const projectsRouter = require('./controllers/projects');
 
+const { unkownEndpointHandler } = require('./middleware');
+
 mongoose
   .connect(process.env.MONGODB_URI || MONGODB_URI, {
     useNewUrlParser: true,
@@ -29,5 +31,8 @@ app.use('/api/todos', notesRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/login', loginRouter);
 app.use('/api/projects', projectsRouter);
+
+// need this to fix react-router cannot get/ on refresh bug
+app.use('/*', unkownEndpointHandler);
 
 module.exports = app;
