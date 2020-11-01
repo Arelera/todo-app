@@ -29,6 +29,16 @@ const Div = styled.div`
     top: 15px;
     right: 10px;
   }
+
+  @media screen and (max-width: 1024px) {
+    display: ${(props) => (props.isProjectsVisible ? '' : 'none')};
+    position: ${(props) => (props.isProjectsVisible ? 'absolute' : 'static')};
+    z-index: 10;
+    background: hsla(0, 0%, 96%, 0.9);
+    top: 0;
+    left: 0;
+    bottom: 0;
+  }
 `;
 
 const H2 = styled.h2`
@@ -64,7 +74,7 @@ const Ul = styled.ul`
   }
 `;
 
-const LeftSide = () => {
+const LeftSide = ({ isProjectsVisible, reference }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -101,7 +111,7 @@ const LeftSide = () => {
   };
 
   return (
-    <Div>
+    <Div ref={reference} isProjectsVisible={isProjectsVisible}>
       <H2>Projects</H2>
       <ProjectForm />
       <TransitionGroup component={Ul}>
@@ -110,7 +120,7 @@ const LeftSide = () => {
         </Project>
 
         {projects.map((p) => (
-          <CSSTransition classNames="fade" timeout={150}>
+          <CSSTransition key={p.id} classNames="fade" timeout={150}>
             <Project
               handleSelect={() => handleSelect(p.id)}
               handleDelete={() => handleDelete(p.id)}

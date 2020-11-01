@@ -9,16 +9,17 @@ import LoginForm from './LoginForm';
 const Div = styled.div`
   height: 100vh;
   padding: 2rem 2rem 2rem 1rem;
+  background: #f7f9f9;
 
   display: flex;
-  justify-content: space-between;
 
-  background: #f7f9f9;
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 const Slogan = styled.div`
   display: inline-block;
-  /* padding: 10rem 0 10rem 0; */
   padding-top: 10%;
   h1 {
     font-size: 5rem;
@@ -40,15 +41,44 @@ const Slogan = styled.div`
     top: 0;
     left: 0;
   }
+  @media screen and (max-width: 1024px) {
+    svg {
+      top: 4rem;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    padding: 0 0 0.5rem 0;
+    h1,
+    h2 {
+      font-size: 4.5rem;
+    }
+  }
+  @media screen and (max-width: 480px) {
+    h1 {
+      font-size: 4rem;
+    }
+    h2 {
+      font-size: 3rem;
+    }
+  }
+  @media screen and (max-width: 425px) {
+    h1 {
+      font-size: 3.5rem;
+    }
+    h2 {
+      font-size: 2.5rem;
+    }
+  }
 `;
 
 const DivForm = styled.div`
   width: 550px;
   margin: 1rem 3rem 1rem 0;
-
   padding: 1rem 1.2rem 2rem 1.2rem;
-  background: #bed8d4;
+  font-size: 1rem;
   border-radius: 8px;
+  background: #bed8d4;
 
   display: flex;
   flex-direction: column;
@@ -64,11 +94,20 @@ const DivForm = styled.div`
     font-size: 1.5rem;
     font-weight: 500;
   }
+
+  @media screen and (max-width: 1024px) {
+    margin: 0;
+    padding: 1rem;
+  }
+  @media screen and (max-width: 768px) {
+    margin: 0 auto;
+
+    width: 102%; /* right side had too much space left, this is probably a bad workaround */
+  }
 `;
 
 const LandingPage = () => {
   const [registering, setRegistering] = useState(true);
-
   const user = useSelector((state) => state.user);
 
   return (
@@ -84,7 +123,11 @@ const LandingPage = () => {
         <h2>Maybe Even Become the Todo</h2>
       </Slogan>
       <DivForm>
-        <h3>Create your Todo account</h3>
+        <h3>
+          {registering
+            ? 'Create your Todo account'
+            : 'Login to your Todo account'}
+        </h3>
         {user.name === '' ? (
           registering ? (
             <RegisterForm setRegistering={setRegistering} />

@@ -40,6 +40,7 @@ const Todo = ({ todo, handleDelete, setActive, isActive }) => {
   const dispatch = useDispatch();
 
   const handleCheck = () => {
+    console.log('clicked CHECK');
     dispatch(updateTodo({ ...todo, completed: !todo.completed }));
   };
 

@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { updateTodo } from '../reducers/todosReducer';
+import Button from './Button';
 
-const DivDescription = styled.div`
+const Div = styled.div`
   width: 60%;
   padding: 0.5rem 1.5rem;
 
@@ -17,6 +18,18 @@ const DivDescription = styled.div`
     text-align: center;
     margin-top: 50%;
   }
+
+  @media screen and (max-width: 768px) {
+    display: ${(props) => (props.descriptionVisible ? 'block' : 'none')};
+    position: ${(props) => (props.descriptionVisible ? 'absolute' : '')};
+    background: hsla(0, 0%, 96%, 0.9);
+    top: 0;
+    right: 0;
+    bottom: 0;
+  }
+  @media screen and (max-width: 425px) {
+    width: ${(props) => (props.descriptionVisible ? '80%' : '')};
+  }
 `;
 
 const Textarea = styled.textarea`
@@ -26,8 +39,8 @@ const Textarea = styled.textarea`
   padding: 0.4rem 0.6rem;
   margin-bottom: 0.5rem;
   width: 100%;
-  min-height: 200px;
-  max-height: 500px;
+  min-height: 400px;
+  max-height: 80%;
   border-radius: 4px;
   border: 1px solid #dedede;
   color: #333;
@@ -38,7 +51,7 @@ const Textarea = styled.textarea`
   outline: none;
 `;
 
-const RightSide = () => {
+const RightSide = ({ descriptionVisible, setDescriptionVisible }) => {
   const dispatch = useDispatch();
   const [description, setDescription] = useState('');
 
@@ -63,7 +76,8 @@ const RightSide = () => {
   };
 
   return (
-    <DivDescription>
+    <Div descriptionVisible={descriptionVisible}>
+      <Button onClick={() => setDescriptionVisible(false)}>hide</Button>
       {activeTodo.title ? (
         <>
           <h2>
@@ -78,7 +92,7 @@ const RightSide = () => {
       ) : (
         <h3>Click a task to view it's details</h3>
       )}
-    </DivDescription>
+    </Div>
   );
 };
 

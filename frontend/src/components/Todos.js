@@ -16,13 +16,38 @@ const Div = styled.div`
   overflow-y: scroll;
 `;
 
-const Todos = () => {
+// couldn't extend Button here for some reason
+const ProjectsButton = styled.button`
+  display: none;
+  font-family: 'Roboto Condensed';
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: hsl(0, 0%, 98%);
+  border: 1px solid #dedede;
+  border-radius: 2px;
+  box-shadow: 1px 2px 10px #ddd;
+  vertical-align: top;
+  padding: 0.4rem 0.6rem;
+  margin: 0 0.5rem 0.5rem 0;
+
+  :hover {
+    background: hsl(0, 0%, 96%);
+  }
+  @media screen and (max-width: 1024px) {
+    display: inline-block;
+  }
+`;
+
+const Todos = ({ setIsProjectsVisible, setDescriptionVisible }) => {
   return (
     <Div>
-      <H2>Todos</H2>
+      <H2>
+        <ProjectsButton onClick={setIsProjectsVisible}>Projects</ProjectsButton>
+        Todos
+      </H2>
       <Notification />
       <TodoForm />
-      <TodoList />
+      <TodoList setDescriptionVisible={setDescriptionVisible} />
     </Div>
   );
 };

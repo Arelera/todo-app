@@ -36,7 +36,7 @@ const Ul = styled.ul`
   }
 `;
 
-const TodoList = () => {
+const TodoList = ({ setDescriptionVisible }) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(initTodos());
@@ -60,12 +60,17 @@ const TodoList = () => {
     return activeTodo.id === id;
   };
 
+  const handleTodoClick = (todo) => {
+    dispatch(setActiveTodo(todo));
+    setDescriptionVisible(true);
+  };
+
   return (
     <TransitionGroup component={Ul}>
       {todos.map((todo) => (
         <CSSTransition key={todo.id} timeout={200} classNames="todo">
           <Todo
-            setActive={() => dispatch(setActiveTodo(todo))}
+            setActive={() => handleTodoClick(todo)}
             handleDelete={handleDelete}
             todo={todo}
             isActive={() => isActive(todo.id)}

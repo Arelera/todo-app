@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import {
   BrowserRouter as Router,
@@ -14,6 +14,8 @@ import LandingPage from './components/LandingPage';
 import { useDispatch, useSelector } from 'react-redux';
 import { initUser } from './reducers/userReducer';
 
+import useVisible from './useVisible';
+
 const Div = styled.div`
   height: 100vh;
   background: #f7f9f9;
@@ -27,11 +29,16 @@ const DivFlex = styled.div`
 
 function App() {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+  const [descriptionVisible, setDescriptionVisible] = useState(false);
+
   useEffect(() => {
     dispatch(initUser());
   }, [dispatch]);
 
-  const user = useSelector((state) => state.user);
+  const [refProjects, isProjectsVisible, setIsProjectsVisible] = useVisible(
+    false
+  );
 
   // user not logged in, but trying to go to app? send em over to the landing page!
   return (
@@ -43,9 +50,18 @@ function App() {
               <Redirect to="/" />
             ) : (
               <DivFlex>
-                <LeftSide />
-                <Todos />
-                <RightSide />
+                <LeftSide
+                  reference={refProjects}
+                  isProjectsVisible={isProjectsVisible}
+                />
+                <Todos
+                  setIsProjectsVisible={setIsProjectsVisible}
+                  setDescriptionVisible={setDescriptionVisible}
+                />
+                <RightSide
+                  descriptionVisible={descriptionVisible}
+                  setDescriptionVisible={setDescriptionVisible}
+                />
               </DivFlex>
             )}
           </Route>
