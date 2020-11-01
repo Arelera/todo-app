@@ -18,7 +18,9 @@ const Div = styled.div`
     text-align: center;
     margin-top: 50%;
   }
-
+  button {
+    display: none;
+  }
   @media screen and (max-width: 768px) {
     display: ${(props) => (props.descriptionVisible ? 'block' : 'none')};
     position: ${(props) => (props.descriptionVisible ? 'absolute' : '')};
@@ -26,6 +28,9 @@ const Div = styled.div`
     top: 0;
     right: 0;
     bottom: 0;
+    button {
+      display: inline-block;
+    }
   }
   @media screen and (max-width: 425px) {
     width: ${(props) => (props.descriptionVisible ? '80%' : '')};
